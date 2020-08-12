@@ -7,7 +7,6 @@ from flask import Blueprint, session, url_for, g
 from app.models.user import User
 from app.settings import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
 from app.services.github import GitHub
-
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
 @blueprint.route('/login/github')
@@ -23,7 +22,6 @@ def githubCallback():
     # Fetch user from GitHub OAuth and store in session
     github = GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
     access_token = github.get_token(request.args['code'])
-
     if access_token is None:
         flash('Could not authorize your request. Please try again.', 'danger')
         return '', 404
